@@ -84,17 +84,21 @@ def scrape():
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     hemlinks = soup.find_all('div', class_='description')
+    # console.log(hemlinks)
     hemisphere_image_urls = []
 
     for link in hemlinks:
         title = link.find('h3').text.strip(' Enhanced')
+        # console.log(title);
         urlh = "https://astrogeology.usgs.gov" + link.find('a')['href']
         browser.visit(urlh)
         time.sleep(5)
         html = browser.html
         soup = BeautifulSoup(html, 'html.parser')
         imageurl = soup.find('div', class_='downloads').find('li').find('a')['href']
+        # console.log(imageurl)
         hemisphere_image_urls.append({"title": title,"img_url": imageurl})
         marsdata_dict["hemisphere_image_urls"] = hemisphere_image_urls  
+        urlh = ""   
 
-        return marsdata_dict
+    return marsdata_dict

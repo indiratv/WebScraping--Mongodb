@@ -7,14 +7,14 @@ app = Flask(__name__)
 
 mongo = PyMongo(app)
 
-conn = 'mongodb://localhost:27017'
-client = pymongo.MongoClient(conn)
-db = client.marsdatadb
-collection = db.marsdatac
+# conn = 'mongodb://localhost:27017'
+# client = pymongo.MongoClient(conn)
+# db = client.marsdatadb
+# collection = db.marsdatac
 
 @app.route("/")
 def index():
-    mars = collection.find_one()
+    mars = mongo.db.marsdatac.find_one()
     print(mars)
     print("In the Index");
     return render_template("index.html", marsdata=mars)
